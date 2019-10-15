@@ -75,17 +75,25 @@ class LoginWithEthereum extends React.Component
 		return new Promise((resolve, reject) => {
 			ENSLoginSDK.connect(username, this.props.config)
 			.then((provider) => {
-				this.setProvider(provider)
+				provider.enable()
 				.then(() => {
-					if (!this.props.noCache)
-					{
-						this.saveLogin(username)
-					}
-					this.setState({ display: false }, () => {
-						resolve()
+					this.setProvider(provider)
+					.then(() => {
+						if (!this.props.noCache)
+						{
+							this.saveLogin(username)
+						}
+						this.setState({ display: false }, () => {
+							resolve()
+						})
+					})
+					.catch(() => {
+						this.setState({ display: false }, reject)
 					})
 				})
-				.catch(reject)
+				.catch(() => {
+					this.setState({ display: false }, reject)
+				})
 			})
 			.catch(() => {
 				this.clearLogin().then(reject).catch(reject)

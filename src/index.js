@@ -23,9 +23,7 @@ const extendedconfig = {
 function connected(provider)
 {
 	console.info('→ connected')
-	provider.enable()
-	.then(console.info)
-	.catch(console.error)
+	console.info(provider)
 }
 function disconnected()
 {
