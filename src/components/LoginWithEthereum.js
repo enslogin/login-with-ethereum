@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 
 import {
 	MDBBtn,
-	MDBIcon,
 	MDBInput,
 	MDBModal,
 	MDBModalBody,
@@ -168,7 +167,6 @@ class LoginWithEthereum extends React.Component
 						</MDBBtn>
 					:
 						<MDBBtn onClick={ this.toggle } color='blue' className='btn-sm'>
-							<MDBIcon icon='paper-plane' className='mr-2' />
 							Login with Ethereum
 						</MDBBtn>
 				}

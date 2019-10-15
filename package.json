@@ -7,9 +7,6 @@
 	"homepage": ".",
 	"dependencies": {
 		"@enslogin/sdk": "^0.1.0",
-		"@fortawesome/fontawesome-svg-core": "^1.2.15",
-		"@fortawesome/free-solid-svg-icons": "^5.7.2",
-		"@fortawesome/react-fontawesome": "^0.1.4",
 		"bootstrap": "^4.3.1",
 		"localforage": "^1.7.3",
 		"mdbreact": "^4.11.0",
