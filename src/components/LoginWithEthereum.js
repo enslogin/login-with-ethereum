@@ -32,40 +32,104 @@ class LoginWithEthereum extends React.Component
 		};
 	}
 
+	// mock = (username) => {
+	// 	return new Promise((resolve, reject) => {
+	// 		(username.length >= 3) ? resolve(username) : reject()
+	// 	})
+	// }
+
 	componentDidMount = () => {
-		if (!this.props.noCache)
-		{
-			this.loadLogin().then(this.connect)
-		}
+		this.autoconnect()
+		.then(() => {})
+		.catch(() => {
+			if (!this.props.noInjected && window && window.ethereum)
+			{
+				window.ethereum.enable()
+				.then(() => { this.setProvider(window.ethereum) })
+				.catch(() => {});
+			}
+		})
 	}
 
-	// Connect/Disconnect
-	connect = (username) => {
-		ENSLoginSDK.connect(username, this.props.config)
-		.then((provider) => {
-			this.setState({ provider, display: false })
+	setProvider = (provider) => {
+		return new Promise((resolve, reject) => {
+			this.setState({ provider }, () => {
+				if (this.props.connect)
+				{
+					this.props.connect(provider)
+				}
+				resolve()
+			})
+		})
+	}
+
+	clearProvider = (provider) => {
+		return new Promise((resolve, reject) => {
+			this.setState({ provider: null }, () => {
+				if (this.props.disconnect)
+				{
+					this.props.disconnect()
+				}
+				resolve()
+			})
+		})
+	}
+
+	autoconnect = () => {
+		return new Promise((resolve, reject) => {
 			if (!this.props.noCache)
 			{
-				this.saveLogin(username)
+				this.loadLogin()
+				.then((username) => {
+					this.connect(username)
+					.then(resolve)
+					.catch(reject)
+				})
+				.catch(reject)
 			}
-			if (this.props.connect)
+			else
 			{
-				this.props.connect(provider)
+				reject()
 			}
-			console.log('Connected with', username)
 		})
-		.catch(() => {
-			this.disconnect()
+	}
+
+	connect = (username) => {
+		return new Promise((resolve, reject) => {
+			// this.mock(username)
+			ENSLoginSDK.connect(username, this.props.config)
+			.then((provider) => {
+				this.setProvider(provider)
+				.then(() => {
+					if (!this.props.noCache)
+					{
+						this.saveLogin(username)
+					}
+					this.setState({ display: false }, () => {
+						resolve()
+					})
+				})
+				.catch(reject)
+			})
+			.catch(() => {
+				this.clearLogin().then(reject).catch(reject)
+			})
 		})
 	}
 
 	disconnect = () => {
-		this.clearLogin().then(() => {
-			this.setState({ provider: null })
-			if (this.props.disconnect)
+		return new Promise((resolve, reject) => {
+			if (this.provider && this.provider.disconnect)
 			{
-				this.props.disconnect()
+				this.provider.disconnect()
 			}
+			this.clearLogin()
+			.then(() => {
+				this.clearProvider()
+				.then(resolve)
+				.catch(reject)
+			})
+			.catch(reject)
 		})
 	}
 
@@ -89,6 +153,8 @@ class LoginWithEthereum extends React.Component
 
 	submit = (ev) => {
 		this.connect(ev.target.value)
+		.then(() => {})
+		.catch(() => {})
 	}
 
 	render = () => {

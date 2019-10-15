@@ -10,4 +10,5 @@ ReactDOM.render(<LoginWithEthereum
 	connect={ (provider) => { console.info('connected:', provider) } }
 	disconnect={ () => { console.info('disconnect') } }
 	// noCache
+	noInjected
 />, document.getElementById('app'));
