@@ -5,6 +5,7 @@
 	"author": "Hadrien Croubois",
 	"license": "MIT",
 	"homepage": ".",
+	"main": "src/components/LoginWithEthereum.js",
 	"dependencies": {
 		"@enslogin/sdk": "^0.1.0",
 		"bootstrap": "^4.3.1",
