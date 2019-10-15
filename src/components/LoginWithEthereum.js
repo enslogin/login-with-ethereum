@@ -11,9 +11,6 @@ import {
 import ENSLoginSDK from '@enslogin/sdk';
 import localforage from 'localforage';
 
-// import ethereum from '../assets/ethereum.svg';
-
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../css/LoginWithEthereum.css';
@@ -29,25 +26,6 @@ class LoginWithEthereum extends React.Component
 			display: false,
 			provider: null,
 		};
-	}
-
-	// mock = (username) => {
-	// 	return new Promise((resolve, reject) => {
-	// 		(username.length >= 3) ? resolve(username) : reject()
-	// 	})
-	// }
-
-	componentDidMount = () => {
-		this.autoconnect()
-		.then(() => {})
-		.catch(() => {
-			if (!this.props.noInjected && window && window.ethereum)
-			{
-				window.ethereum.enable()
-				.then(() => { this.setProvider(window.ethereum) })
-				.catch(() => {});
-			}
-		})
 	}
 
 	setProvider = (provider) => {
@@ -80,7 +58,7 @@ class LoginWithEthereum extends React.Component
 			{
 				this.loadLogin()
 				.then((username) => {
-					this.connect(username)
+					this.tryConnect(username)
 					.then(resolve)
 					.catch(reject)
 				})
@@ -93,9 +71,8 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	connect = (username) => {
+	tryConnect = (username) => {
 		return new Promise((resolve, reject) => {
-			// this.mock(username)
 			ENSLoginSDK.connect(username, this.props.config)
 			.then((provider) => {
 				this.setProvider(provider)
@@ -113,6 +90,27 @@ class LoginWithEthereum extends React.Component
 			.catch(() => {
 				this.clearLogin().then(reject).catch(reject)
 			})
+		})
+	}
+
+	connect = () => {
+		this.autoconnect()
+		.then(() => {})
+		.catch(() => {
+			if (!this.props.noInjected && window && window.ethereum)
+			{
+				window.ethereum.enable()
+				.then(() => {
+					this.setProvider(window.ethereum)
+				})
+				.catch(() => {
+					this.setState({ display: true })
+				});
+			}
+			else
+			{
+				this.setState({ display: true })
+			}
 		})
 	}
 
@@ -151,7 +149,7 @@ class LoginWithEthereum extends React.Component
 	}
 
 	submit = (ev) => {
-		this.connect(ev.target.value)
+		this.tryConnect(ev.target.value)
 		.then(() => {})
 		.catch(() => {})
 	}
@@ -166,7 +164,7 @@ class LoginWithEthereum extends React.Component
 							Disconnect
 						</MDBBtn>
 					:
-						<MDBBtn onClick={ this.toggle } color='blue' className='btn-sm'>
+						<MDBBtn onClick={ this.connect } color='blue' className='btn-sm'>
 							Login with Ethereum
 						</MDBBtn>
 				}
