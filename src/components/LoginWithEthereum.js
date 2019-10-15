@@ -75,28 +75,26 @@ class LoginWithEthereum extends React.Component
 		return new Promise((resolve, reject) => {
 			ENSLoginSDK.connect(username, this.props.config)
 			.then((provider) => {
-				provider.enable()
-				.then(() => {
-					this.setProvider(provider)
+				this.setState({ display: false }, () => {
+					provider.enable()
 					.then(() => {
-						if (!this.props.noCache)
-						{
-							this.saveLogin(username)
-						}
-						this.setState({ display: false }, () => {
+						this.setProvider(provider)
+						.then(() => {
+							if (!this.props.noCache)
+							{
+								this.saveLogin(username)
+							}
 							resolve()
 						})
+						.catch(reject)
 					})
-					.catch(() => {
-						this.setState({ display: false }, reject)
-					})
-				})
-				.catch(() => {
-					this.setState({ display: false }, reject)
+					.catch(reject)
 				})
 			})
 			.catch(() => {
-				this.clearLogin().then(reject).catch(reject)
+				this.clearLogin()
+				.then(reject)
+				.catch(reject)
 			})
 		})
 	}
@@ -185,7 +183,6 @@ class LoginWithEthereum extends React.Component
 						</a>
 					</MDBModalBody>
 				</MDBModal>
-
 			</div>
 		);
 	}
@@ -193,7 +190,7 @@ class LoginWithEthereum extends React.Component
 
 LoginWithEthereum.propTypes =
 {
-	services: PropTypes.object
+	config: PropTypes.object
 };
 
 export default LoginWithEthereum;
