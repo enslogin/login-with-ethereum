@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import {
 	MDBBtn,
@@ -28,7 +27,8 @@ class LoginWithEthereum extends React.Component
 		};
 	}
 
-	setProvider = (provider) => {
+	setProvider(provider)
+	{
 		return new Promise((resolve, reject) => {
 			this.setState({ provider }, () => {
 				if (this.props.connect)
@@ -40,7 +40,8 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	clearProvider = (provider) => {
+	clearProvider(provider)
+	{
 		return new Promise((resolve, reject) => {
 			this.setState({ provider: null }, () => {
 				if (this.props.disconnect)
@@ -52,7 +53,8 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	autoconnect = () => {
+	autoconnect()
+	{
 		return new Promise((resolve, reject) => {
 			if (!this.props.noCache)
 			{
@@ -71,7 +73,8 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	tryConnect = (username) => {
+	tryConnect(username)
+	{
 		return new Promise((resolve, reject) => {
 			ENSLoginSDK.connect(username, this.props.config)
 			.then((provider) => {
@@ -99,7 +102,8 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	connect = () => {
+	connect()
+	{
 		this.autoconnect()
 		.then(() => {})
 		.catch(() => {
@@ -120,7 +124,8 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	disconnect = () => {
+	disconnect()
+	{
 		return new Promise((resolve, reject) => {
 			if (this.provider && this.provider.disconnect)
 			{
@@ -137,30 +142,36 @@ class LoginWithEthereum extends React.Component
 	}
 
 	// Cache
-	saveLogin = (username) => {
+	saveLogin(username)
+	{
 		return localforage.setItem(USERNAME_STORE, username, (err) => !!err)
 	}
 
-	loadLogin = () => {
+	loadLogin()
+	{
 		return localforage.getItem(USERNAME_STORE, (value, err) => (err ? null : value))
 	}
 
-	clearLogin = () => {
+	clearLogin()
+	{
 		return localforage.clear()
 	}
 
 	// UI
-	toggle = () => {
+	toggle()
+	{
 		this.setState({ display: !this.state.display })
 	}
 
-	submit = (ev) => {
+	submit(ev)
+	{
 		this.tryConnect(ev.target.value)
 		.then(() => {})
 		.catch(() => {})
 	}
 
-	render = () => {
+	render()
+	{
 		return (
 			<div name='LoginWithEthereum'>
 				{
@@ -187,10 +198,5 @@ class LoginWithEthereum extends React.Component
 		);
 	}
 }
-
-LoginWithEthereum.propTypes =
-{
-	config: PropTypes.object
-};
 
 export default LoginWithEthereum;

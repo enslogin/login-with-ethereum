@@ -4,31 +4,29 @@
 	"description": "",
 	"author": "Hadrien Croubois",
 	"license": "MIT",
-	"homepage": ".",
-	"main": "src/components/LoginWithEthereum.js",
+	"main": "dist/index.js",
+	"scripts": {},
 	"dependencies": {
 		"@enslogin/sdk": "^0.1.0",
 		"localforage": "^1.7.3",
-		"mdbreact": "^4.21.1",
-		"react": "^16.10.2",
-		"react-dom": "^16.10.2"
+		"mdbreact": "^4.21.1"
 	},
 	"devDependencies": {
-		"react-scripts": "^3.2.0"
+		"@babel/core": "^7.6.4",
+		"@babel/preset-env": "^7.6.3",
+		"@babel/preset-react": "^7.6.3",
+		"babel-loader": "^8.0.6",
+		"css-loader": "^3.2.0",
+		"file-loader": "^4.2.0",
+		"react": "^16.10.2",
+		"react-dom": "^16.10.2",
+		"style-loader": "^1.0.0",
+		"url-loader": "^2.2.0",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.9"
 	},
-	"scripts": {
-		"start": "react-scripts start --",
-		"build": "react-scripts build --",
-		"test": "react-scripts test --",
-		"eject": "react-scripts eject --"
-	},
-	"eslintConfig": {
-		"extends": "react-app"
-	},
-	"browserslist": [
-		">0.2%",
-		"not dead",
-		"not ie <= 11",
-		"not op_mini all"
-	]
+	"peerDependencies": {
+		"react": "^16.10.2",
+		"react-dom": "^16.10.2"
+	}
 }
