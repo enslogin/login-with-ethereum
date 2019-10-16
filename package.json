@@ -5,7 +5,10 @@
 	"author": "Hadrien Croubois",
 	"license": "MIT",
 	"main": "dist/index.js",
-	"scripts": {},
+	"scripts": {
+		"build": "webpack",
+		"clean": "rm -r ./dist"
+	},
 	"dependencies": {
 		"@enslogin/sdk": "^0.1.0",
 		"localforage": "^1.7.3",

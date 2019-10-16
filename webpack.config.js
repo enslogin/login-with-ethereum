@@ -9,7 +9,7 @@ module.exports =
 	output:
 	{
 		path: path.join(__dirname, './dist'),
-		filename: 'LoginWithEthereum.js',
+		filename: 'index.js',
 		library: pkg.name,
 		libraryTarget: 'umd',
 		publicPath: '/dist/',
