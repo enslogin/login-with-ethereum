@@ -8,7 +8,9 @@
 	"types": "dist/index.d.ts",
 	"scripts": {
 		"prebuild": "yarn clean",
-		"build": "tsc",
+		"build": "yarn build:js && yarn build:css",
+		"build:js": "tsc",
+		"build:css": "cp -r lib/css dist/css",
 		"clean": "rimraf dist"
 	},
 	"dependencies": {
