@@ -14,12 +14,12 @@
 	"dependencies": {
 		"@enslogin/sdk": "^0.1.1",
 		"localforage": "^1.7.3",
-		"mdbreact": "^4.21.1",
-		"rimraf": "^3.0.0"
+		"mdbreact": "^4.21.1"
 	},
 	"devDependencies": {
 		"react": "^16.10.2",
 		"react-dom": "^16.10.2",
+		"rimraf": "^3.0.0",
 		"typescript": "^3.6.4"
 	},
 	"peerDependencies": {
