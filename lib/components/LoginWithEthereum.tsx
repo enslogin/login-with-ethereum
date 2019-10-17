@@ -184,28 +184,29 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 	}
 
 	render = () => {
-		return null;
-			// <div id='LoginWithEthereum'>
-			// 	{
-			// 		this.state.provider
-			// 		?
-			// 			<MDBBtn onClick={ this.disconnect } color='blue' className='btn-sm'>
-			// 				Disconnect
-			// 			</MDBBtn>
-			// 		:
-			// 			<MDBBtn onClick={ this.connect } color='blue' className='btn-sm'>
-			// 				Login with Ethereum
-			// 			</MDBBtn>
-			// 	}
-			// 	<MDBModal isOpen={ this.state.display } toggle={ this.toggle } centered>
-			// 		<MDBModalBody>
-			// 			<MDBInput onChange={ this.submit } label='username'>
-			// 			</MDBInput>
-			// 			<a href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer' className='d-block w-100 text-right small'>
-			// 				Get an ENS Login
-			// 			</a>
-			// 		</MDBModalBody>
-			// 	</MDBModal>
-			// </div>
+		return (
+			<div id='LoginWithEthereum'>
+				{
+					this.state.provider
+					?
+						<MDBBtn onClick={ this.disconnect } color='blue' className='btn-sm'>
+							Disconnect
+						</MDBBtn>
+					:
+						<MDBBtn onClick={ this.connect } color='blue' className='btn-sm'>
+							Login with Ethereum
+						</MDBBtn>
+				}
+				<MDBModal isOpen={ this.state.display } toggle={ this.toggle } centered>
+					<MDBModalBody>
+						<MDBInput onChange={ this.submit } label='username'>
+						</MDBInput>
+						<a href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer' className='d-block w-100 text-right small'>
+							Get an ENS Login
+						</a>
+					</MDBModalBody>
+				</MDBModal>
+			</div>
+		);
 	}
 }
