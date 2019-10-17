@@ -14,7 +14,7 @@
 		"clean": "rimraf dist"
 	},
 	"dependencies": {
-		"@enslogin/sdk": "^0.1.1",
+		"@enslogin/sdk": "^0.1.2",
 		"localforage": "^1.7.3",
 		"mdbreact": "^4.21.1"
 	},

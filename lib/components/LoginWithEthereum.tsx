@@ -48,6 +48,13 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 			display: false,
 			provider: null,
 		};
+
+		this.props.config.__callbacks = this.props.config.__callbacks || {};
+		this.props.config.__callbacks.resolved = (username, addr, descr) => {
+			this.setState({ display: false }, () => {
+				this.props.config.__callbacks.resolved(username, addr, descr);
+			})
+		};
 	}
 
 	setProvider = (provider: providerExtended): Promise<void> => {
@@ -97,21 +104,19 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 		return new Promise((resolve, reject) => {
 			ENSLoginSDK.connect(username, this.props.config)
 			.then((provider: providerExtended) => {
-				this.setState({ display: false }, () => {
-					provider.enable()
+				provider.enable()
+				.then(() => {
+					this.setProvider(provider)
 					.then(() => {
-						this.setProvider(provider)
-						.then(() => {
-							if (!this.props.noCache)
-							{
-								this.saveLogin(username)
-							}
-							resolve()
-						})
-						.catch(reject)
+						if (!this.props.noCache)
+						{
+							this.saveLogin(username)
+						}
+						resolve()
 					})
 					.catch(reject)
 				})
+				.catch(reject)
 			})
 			.catch(() => {
 				this.clearLogin()
