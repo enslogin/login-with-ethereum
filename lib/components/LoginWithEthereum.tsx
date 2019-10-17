@@ -50,9 +50,13 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 		};
 
 		this.props.config.__callbacks = this.props.config.__callbacks || {};
+		const resolved_super = this.props.config.__callbacks.resolved;
 		this.props.config.__callbacks.resolved = (username, addr, descr) => {
 			this.setState({ display: false }, () => {
-				this.props.config.__callbacks.resolved(username, addr, descr);
+				if (resolved_super)
+				{
+					resolved_super(username, addr, descr);
+				}
 			})
 		};
 	}
