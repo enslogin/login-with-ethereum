@@ -188,14 +188,8 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 			<div id='LoginWithEthereum'>
 				{
 					this.state.provider
-					?
-						<MDBBtn onClick={ this.disconnect } color='blue' className='btn-sm'>
-							Disconnect
-						</MDBBtn>
-					:
-						<MDBBtn onClick={ this.connect } color='blue' className='btn-sm'>
-							Login with Ethereum
-						</MDBBtn>
+					? <button onClick={ this.disconnect }>Disconnect</button>
+					: <button onClick={ this.connect    }>Login with Ethereum</button>
 				}
 				<MDBModal isOpen={ this.state.display } toggle={ this.toggle } centered>
 					<MDBModalBody>
