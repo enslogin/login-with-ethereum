@@ -4,29 +4,23 @@
 	"description": "",
 	"author": "Hadrien Croubois",
 	"license": "MIT",
-	"main": "dist/index.js",
+	"main": "dist/lib/index.js",
+	"types": "dist/lib/index.d.ts",
 	"scripts": {
-		"build": "webpack",
-		"clean": "rm -r ./dist"
+		"prebuild": "yarn clean",
+		"build": "tsc",
+		"clean": "rimraf dist"
 	},
 	"dependencies": {
-		"@enslogin/sdk": "^0.1.0",
+		"@enslogin/sdk": "^0.1.1",
 		"localforage": "^1.7.3",
-		"mdbreact": "^4.21.1"
+		"mdbreact": "^4.21.1",
+		"rimraf": "^3.0.0"
 	},
 	"devDependencies": {
-		"@babel/core": "^7.6.4",
-		"@babel/preset-env": "^7.6.3",
-		"@babel/preset-react": "^7.6.3",
-		"babel-loader": "^8.0.6",
-		"css-loader": "^3.2.0",
-		"file-loader": "^4.2.0",
 		"react": "^16.10.2",
 		"react-dom": "^16.10.2",
-		"style-loader": "^1.0.0",
-		"url-loader": "^2.2.0",
-		"webpack": "^4.41.2",
-		"webpack-cli": "^3.3.9"
+		"typescript": "^3.6.4"
 	},
 	"peerDependencies": {
 		"react": "^16.10.2",

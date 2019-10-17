@@ -1,22 +1,45 @@
 import React from 'react';
-
-import {
-	MDBBtn,
-	MDBInput,
-	MDBModal,
-	MDBModalBody,
-} from 'mdbreact';
-
+import {MDBBtn, MDBInput, MDBModal, MDBModalBody} from 'mdbreact';
 import ENSLoginSDK from '@enslogin/sdk';
 import localforage from 'localforage';
-
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../css/LoginWithEthereum.css';
 
 const USERNAME_STORE = 'enslogin-username';
 
-class LoginWithEthereum extends React.Component
+import { config   } from '@enslogin/sdk/lib/types/config';
+import { provider } from '@enslogin/sdk/lib/types/ethereum';
+
+export interface providerExtended extends provider
+{
+	enable  ?: () => Promise<void>;
+	disable ?: () => Promise<void>;
+}
+
+declare global
+{
+	interface Window
+	{
+		ethereum ?: providerExtended;
+	}
+}
+
+export interface LoginWithEthereumProps
+{
+	config      : config;
+	connect    ?: (provider: providerExtended) => void;
+	disconnect ?: () => void;
+	noCache    ?: boolean;
+	noInjected ?: boolean;
+}
+export interface LoginWithEthereumState
+{
+	display  ?: boolean;
+	provider ?: providerExtended;
+}
+
+export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, LoginWithEthereumState>
 {
 	constructor(props)
 	{
@@ -27,8 +50,7 @@ class LoginWithEthereum extends React.Component
 		};
 	}
 
-	setProvider(provider)
-	{
+	setProvider = (provider: providerExtended): Promise<void> => {
 		return new Promise((resolve, reject) => {
 			this.setState({ provider }, () => {
 				if (this.props.connect)
@@ -40,8 +62,7 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	clearProvider(provider)
-	{
+	clearProvider = (): Promise<void> => {
 		return new Promise((resolve, reject) => {
 			this.setState({ provider: null }, () => {
 				if (this.props.disconnect)
@@ -53,13 +74,12 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	autoconnect()
-	{
+	autoconnect = (): Promise<void> => {
 		return new Promise((resolve, reject) => {
 			if (!this.props.noCache)
 			{
 				this.loadLogin()
-				.then((username) => {
+				.then((username: string) => {
 					this.tryConnect(username)
 					.then(resolve)
 					.catch(reject)
@@ -73,11 +93,10 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	tryConnect(username)
-	{
+	tryConnect = (username: string): Promise<void> => {
 		return new Promise((resolve, reject) => {
 			ENSLoginSDK.connect(username, this.props.config)
-			.then((provider) => {
+			.then((provider: providerExtended) => {
 				this.setState({ display: false }, () => {
 					provider.enable()
 					.then(() => {
@@ -102,16 +121,16 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	connect()
-	{
+	connect = (): void => {
 		this.autoconnect()
 		.then(() => {})
 		.catch(() => {
 			if (!this.props.noInjected && window && window.ethereum)
 			{
-				window.ethereum.enable()
+				const injected: providerExtended = window.ethereum;
+				injected.enable()
 				.then(() => {
-					this.setProvider(window.ethereum)
+					this.setProvider(injected)
 				})
 				.catch(() => {
 					this.setState({ display: true })
@@ -124,12 +143,11 @@ class LoginWithEthereum extends React.Component
 		})
 	}
 
-	disconnect()
-	{
+	disconnect = (): Promise<void> => {
 		return new Promise((resolve, reject) => {
-			if (this.provider && this.provider.disconnect)
+			if (this.state.provider && this.state.provider.disable)
 			{
-				this.provider.disconnect()
+				this.state.provider.disable()
 			}
 			this.clearLogin()
 			.then(() => {
@@ -142,61 +160,52 @@ class LoginWithEthereum extends React.Component
 	}
 
 	// Cache
-	saveLogin(username)
-	{
+	saveLogin = (username: string): Promise<string> => {
 		return localforage.setItem(USERNAME_STORE, username, (err) => !!err)
 	}
 
-	loadLogin()
-	{
+	loadLogin = (): Promise<string> => {
 		return localforage.getItem(USERNAME_STORE, (value, err) => (err ? null : value))
 	}
 
-	clearLogin()
-	{
+	clearLogin = (): Promise<void> => {
 		return localforage.clear()
 	}
 
 	// UI
-	toggle()
-	{
+	toggle = (): void => {
 		this.setState({ display: !this.state.display })
 	}
 
-	submit(ev)
-	{
+	submit = (ev): void => {
 		this.tryConnect(ev.target.value)
 		.then(() => {})
 		.catch(() => {})
 	}
 
-	render()
-	{
-		return (
-			<div name='LoginWithEthereum'>
-				{
-					this.state.provider
-					?
-						<MDBBtn onClick={ this.disconnect } color='blue' className='btn-sm'>
-							Disconnect
-						</MDBBtn>
-					:
-						<MDBBtn onClick={ this.connect } color='blue' className='btn-sm'>
-							Login with Ethereum
-						</MDBBtn>
-				}
-				<MDBModal isOpen={ this.state.display } toggle={ this.toggle } centered>
-					<MDBModalBody>
-						<MDBInput onChange={ this.submit } label='username'>
-						</MDBInput>
-						<a href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer' className='d-block w-100 text-right small'>
-							Get an ENS Login
-						</a>
-					</MDBModalBody>
-				</MDBModal>
-			</div>
-		);
+	render = () => {
+		return null;
+			// <div id='LoginWithEthereum'>
+			// 	{
+			// 		this.state.provider
+			// 		?
+			// 			<MDBBtn onClick={ this.disconnect } color='blue' className='btn-sm'>
+			// 				Disconnect
+			// 			</MDBBtn>
+			// 		:
+			// 			<MDBBtn onClick={ this.connect } color='blue' className='btn-sm'>
+			// 				Login with Ethereum
+			// 			</MDBBtn>
+			// 	}
+			// 	<MDBModal isOpen={ this.state.display } toggle={ this.toggle } centered>
+			// 		<MDBModalBody>
+			// 			<MDBInput onChange={ this.submit } label='username'>
+			// 			</MDBInput>
+			// 			<a href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer' className='d-block w-100 text-right small'>
+			// 				Get an ENS Login
+			// 			</a>
+			// 		</MDBModalBody>
+			// 	</MDBModal>
+			// </div>
 	}
 }
-
-export default LoginWithEthereum;
