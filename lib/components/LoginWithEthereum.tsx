@@ -194,7 +194,7 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 
 	render = () => {
 		return (
-			<div id='LoginWithEthereum'>
+			<div id='LoginWithEthereum' { ...this.props }>
 				{
 					this.state.provider
 					? <button onClick={ this.disconnect }>Disconnect</button>

@@ -127,7 +127,7 @@ class LoginWithEthereum extends react_1.default.Component {
                 .catch(() => { });
         };
         this.render = () => {
-            return (react_1.default.createElement("div", { id: 'LoginWithEthereum' },
+            return (react_1.default.createElement("div", Object.assign({ id: 'LoginWithEthereum' }, this.props),
                 this.state.provider
                     ? react_1.default.createElement("button", { onClick: this.disconnect }, "Disconnect")
                     : react_1.default.createElement("button", { onClick: this.connect }, "Login with Ethereum"),
