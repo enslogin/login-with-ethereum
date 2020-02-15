@@ -68,7 +68,7 @@ class LoginWithEthereum extends react_1.default.Component {
                         .catch(reject);
                 })
                     .catch(error => {
-                    console.error(error);
+                    console.warn(error);
                     this.clearLogin()
                         .then(reject)
                         .catch(reject);
