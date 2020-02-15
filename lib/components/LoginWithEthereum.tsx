@@ -122,7 +122,8 @@ export class LoginWithEthereum extends React.Component<LoginWithEthereumProps, L
 				})
 				.catch(reject)
 			})
-			.catch(() => {
+			.catch(error => {
+				console.error(error);
 				this.clearLogin()
 				.then(reject)
 				.catch(reject)
