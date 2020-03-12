@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { types } from '@enslogin/sdk';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -18,6 +18,7 @@ export interface Props {
 }
 export interface State {
     provider?: types.provider;
+    loading: boolean;
     modal: boolean;
 }
 export interface Cache {

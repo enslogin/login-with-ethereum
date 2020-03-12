@@ -15,7 +15,8 @@
 		"demo:start": "react-scripts start",
 		"demo:build": "react-scripts build",
 		"demo:test": "react-scripts test",
-		"demo:eject": "react-scripts eject"
+		"demo:eject": "react-scripts eject",
+		"demo:deploy": "rsync -avz build/* hadriencroubois.com:/srv/http/webapps/enslogin/."
 	},
 	"dependencies": {
 		"@enslogin/sdk": "^0.1.8",

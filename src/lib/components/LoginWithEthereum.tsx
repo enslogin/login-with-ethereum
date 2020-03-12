@@ -1,9 +1,9 @@
 import * as React from "react"
 import LoginWithEthereumLoading from './LoginWithEthereumLoading';
-import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
+import { MDBIcon, MDBInput, MDBModal } from 'mdbreact';
 
 import { ENSLoginSDK, types } from '@enslogin/sdk';
-import WalletConnectProvider from '@walletconnect/web3-provider';
+// import WalletConnectProvider from '@walletconnect/web3-provider';
 
 import localforage from 'localforage';
 

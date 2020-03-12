@@ -11,7 +11,10 @@ code
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
-#LoginWithEthereum button
+/**
+ * Button
+ */
+#LoginWithEthereum-Button button
 {
 	display: inline-block;
 	cursor: pointer;
@@ -33,7 +36,37 @@ code
 	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#LoginWithEthereum button:hover
+#LoginWithEthereum-Button button:hover
 {
 	box-shadow: 0 5px 11px 0 rgba(0,0,0,.18),0 4px 15px 0 rgba(0,0,0,.15);
+}
+
+/**
+ * Modal
+ */
+#LoginWithEthereum-Modal .modal-dialog .modal-content
+{
+	border-radius: .25em;
+}
+#LoginWithEthereum-Modal .md-form.md-outline
+{
+	display: inline-block;
+	width: 100%;
+}
+#LoginWithEthereum-Modal .md-form.md-outline:not(:focus) label
+{
+	/* transform: translateY(25%); */
+}
+#LoginWithEthereum-Modal .inline-embeded
+{
+	display: inline-block;
+	width: 0;
+}
+#LoginWithEthereum-Modal .inline-embeded i
+{
+	transform: translateX(-200%);
+}
+#LoginWithEthereum-Modal .d-flex .flex-auto
+{
+	flex: auto;
 }
