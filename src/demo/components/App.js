@@ -43,7 +43,6 @@ class App extends Component
 	}
 
 	connect = (provider) => {
-		console.log(provider)
 		this.state.emitter.emit("Notify", "success", "You are connected")
 		this.setState({
 			provider,
@@ -70,8 +69,8 @@ class App extends Component
 					config     = { this.state.config }
 					connect    = { this.connect }
 					disconnect = { this.disconnect }
-					noInjected = { false }
-					noCache    = { true }
+					noInjected = { true  }
+					noCache    = { false }
 				/>
 				{ this.state.provider && <Main services={this.state}/> }
 			</>
