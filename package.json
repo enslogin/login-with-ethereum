@@ -9,23 +9,56 @@
 	"scripts": {
 		"prebuild": "yarn clean",
 		"build": "yarn build:js && yarn build:css",
-		"build:js": "tsc",
-		"build:css": "cp -r lib/css dist/css",
-		"clean": "rimraf dist"
+		"build:js": "tsc -p src/lib",
+		"build:css": "cp -r src/lib/css dist/css",
+		"clean": "rimraf dist",
+		"demo:start": "react-scripts start",
+		"demo:build": "react-scripts build",
+		"demo:test": "react-scripts test",
+		"demo:eject": "react-scripts eject"
 	},
 	"dependencies": {
-		"@enslogin/sdk": "^0.1.6",
+		"@enslogin/sdk": "^0.1.8",
+		"@walletconnect/types": "^1.0.0-beta.47",
+		"@walletconnect/web3-provider": "^1.0.0-beta.47",
 		"localforage": "^1.7.3",
-		"mdbreact": "^4.25.1"
-	},
-	"devDependencies": {
+		"mdbreact": "^4.25.1",
 		"react": "^16.12.0",
 		"react-dom": "^16.12.0",
 		"rimraf": "^3.0.2",
 		"typescript": "^3.7.5"
 	},
+	"devDependencies": {
+		"@fortawesome/fontawesome-svg-core": "^1.2.27",
+		"@fortawesome/free-solid-svg-icons": "^5.12.1",
+		"@fortawesome/react-fontawesome": "^0.1.8",
+		"@universal-login/provider": "^0.5.9",
+		"bootstrap": "^4.4.1",
+		"ethers": "^4.0.44",
+		"fbemitter": "^2.1.1",
+		"jquery": "^3.4.1",
+		"node-notifier": "^6.0.0",
+		"openzeppelin-solidity": "^2.5.0",
+		"react-bootstrap": "^1.0.0-beta.16",
+		"react-cookie": "^4.0.3",
+		"react-fontawesome": "^1.7.1",
+		"react-notifications": "^1.4.3",
+		"react-router-dom": "^5.1.2",
+		"react-scripts": "^3.4.0",
+		"react-toastify": "^5.5.0",
+		"web3": "^1.2.6"
+	},
 	"peerDependencies": {
 		"react": "^16.10.2",
 		"react-dom": "^16.10.2"
-	}
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	]
 }

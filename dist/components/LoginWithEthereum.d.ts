@@ -1,40 +1,41 @@
-import React from 'react';
+import React from "react";
+import { types } from '@enslogin/sdk';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../css/LoginWithEthereum.css';
-import { config } from '@enslogin/sdk/lib/types/config';
-import { provider } from '@enslogin/sdk/lib/types/ethereum';
-export interface providerExtended extends provider {
-    enable?: () => Promise<void>;
-    disable?: () => Promise<void>;
-}
 declare global {
     interface Window {
-        ethereum?: providerExtended;
+        ethereum?: types.provider;
     }
 }
-export interface LoginWithEthereumProps {
-    config: config;
-    connect?: (provider: providerExtended) => void;
+export interface Props {
+    config: types.config;
+    connect?: (provider: types.provider) => void;
     disconnect?: () => void;
     noCache?: boolean;
     noInjected?: boolean;
+    className?: string;
 }
-export interface LoginWithEthereumState {
-    display?: boolean;
-    provider?: providerExtended;
+export interface State {
+    provider?: types.provider;
+    modal: boolean;
 }
-export declare class LoginWithEthereum extends React.Component<LoginWithEthereumProps, LoginWithEthereumState> {
-    constructor(props: any);
-    setProvider: (provider: providerExtended) => Promise<void>;
+export interface Cache {
+    module: string;
+    details?: any;
+}
+export declare class LoginWithEthereum extends React.Component<Props, State> {
+    state: State;
+    componentDidMount: () => void;
+    setProvider: (provider: types.provider) => Promise<void>;
     clearProvider: () => Promise<void>;
-    autoconnect: () => Promise<void>;
-    tryConnect: (username: string) => Promise<void>;
-    connect: () => void;
+    connect: () => Promise<void>;
     disconnect: () => Promise<void>;
-    saveLogin: (username: string) => Promise<string>;
-    loadLogin: () => Promise<string>;
-    clearLogin: () => Promise<void>;
+    walletconnect: () => Promise<void>;
+    enslogin: (username: string) => Promise<void>;
+    setCache: (value: Cache) => Promise<Cache>;
+    getCache: () => Promise<Cache>;
+    clearCache: () => Promise<void>;
     toggle: () => void;
     submit: (ev: any) => void;
     render: () => JSX.Element;
