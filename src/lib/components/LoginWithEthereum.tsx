@@ -302,7 +302,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 					<ul className="nav nav-tabs d-flex">
 						<li className="nav-item flex-auto text-center">
 							<a className="nav-link active">
-								Loggin
+								Login
 							</a>
 						</li>
 						<li className="nav-item flex-auto text-center">

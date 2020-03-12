@@ -185,7 +185,7 @@ class LoginWithEthereum extends React.Component {
                 React.createElement(mdbreact_1.MDBModal, { id: 'LoginWithEthereum-Modal', isOpen: this.state.modal, toggle: this.toggle, centered: true },
                     React.createElement("ul", { className: "nav nav-tabs d-flex" },
                         React.createElement("li", { className: "nav-item flex-auto text-center" },
-                            React.createElement("a", { className: "nav-link active" }, "Loggin")),
+                            React.createElement("a", { className: "nav-link active" }, "Login")),
                         React.createElement("li", { className: "nav-item flex-auto text-center" },
                             React.createElement("a", { className: "nav-link", href: 'https://get-an-enslogin.com', target: '_blank', rel: 'noopener noreferrer' }, "Sign-up"))),
                     React.createElement("form", { className: "m-5", onSubmit: this.submit },
