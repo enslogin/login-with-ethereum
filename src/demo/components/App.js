@@ -5,7 +5,6 @@ import Web3 from 'web3';
 import LoginWithEthereum from '../../lib';
 
 import Notifications from './Notifications';
-import Loading       from './Loading';
 import Main          from './Main';
 import config        from '../config/config';
 
@@ -16,7 +15,6 @@ class App extends Component
 		super(props);
 
 		this.state = {
-			loading: false,
 			provider: null,
 			web3: null,
 			emitter: new EventEmitter(),
@@ -27,15 +25,12 @@ class App extends Component
 					resolved: (username, addr, descr) => {
 						console.info(`Resolved ${username} (${addr}) ${descr}`);
 						this.state.emitter.emit("Notify", "info", `Connecting to ${username}`)
-						this.setState({ loading: true })
 					},
 					loading: (protocol, path) => {
 						console.info(`Loading ${protocol}://${path} ...`);
-						this.setState({ loading: true })
 					},
 					loaded: (protocol, path) => {
 						console.info(`${protocol}://${path} loaded`);
-						this.setState({ loading: true })
 					}
 				}
 			}
@@ -47,7 +42,6 @@ class App extends Component
 		this.setState({
 			provider,
 			web3: new Web3(provider),
-			loading: false,
 		})
 	}
 
@@ -62,7 +56,6 @@ class App extends Component
 	render = () => {
 		return (
 			<>
-				{ this.state.loading && <Loading/> }
 				<Notifications emitter={this.state.emitter}/>
 				<LoginWithEthereum
 					className  = { this.state.provider ? 'connected' : '' }

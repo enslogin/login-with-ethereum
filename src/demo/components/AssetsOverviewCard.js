@@ -103,14 +103,14 @@ class AssetsOverviewCard extends Component
 						}
 						</MDBTableBody>
 					</MDBTable>
-					<button gradient="blue" className="m-3 py-2" onClick={this.forceRefresh.bind(this)}>
+					<MDBBtn gradient="blue" className="m-3 py-2" onClick={this.forceRefresh.bind(this)}>
 						Refresh
 						<MDBIcon icon="sync" className="ml-1" />
-					</button>
-					<button gradient="ripe-malinka" className="m-3 py-2">
+					</MDBBtn>
+					<MDBBtn gradient="ripe-malinka" className="m-3 py-2">
 						Buy tokens
 						<MDBIcon icon="shopping-cart" className="ml-1" />
-					</button>
+					</MDBBtn>
 				</MDBCardBody>
 			</MDBCard>
 		);

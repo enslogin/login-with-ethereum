@@ -41,7 +41,7 @@ code
 	display: none;
 }
 
-#LoginWithEthereum
+#LoginWithEthereum-Button
 {
 	display:          flex;
 	position:         sticky;
@@ -51,10 +51,9 @@ code
 	align-items:      center;
 	justify-content:  center;
 	background-color: #ffffff;
-	z-index:          100000;
 }
 
-#LoginWithEthereum.connected
+#LoginWithEthereum-Button.connected
 {
 	height:           auto;
 	justify-content:  right;

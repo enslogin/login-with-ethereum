@@ -92,10 +92,10 @@ class TransferModal extends Component
 						<form onSubmit={this.transfer.bind(this)}>
 							<MDBInput label="to"  name="dest"/>
 							<MDBInput label={"value ("+this.props.asset[2]+")"} name="value"/>
-							<button gradient="blue" className="m-3 py-2" type="submit">
+							<MDBBtn gradient="blue" className="m-3 py-2" type="submit">
 								Send
 								<MDBIcon icon="paper-plane" className="ml-1" />
-							</button>
+							</MDBBtn>
 						</form>
 					</MDBModalBody>
 				</MDBModal>

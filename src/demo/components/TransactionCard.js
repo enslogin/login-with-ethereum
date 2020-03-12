@@ -60,9 +60,9 @@ class TransactionCard extends Component
 						<MDBInput label="to"          name="to"    hint={ethers.constants.AddressZero}/>
 						<MDBInput label="value (ETH)" name="value" hint="0"/>
 						<MDBInput label="data"        name="data"  hint="0x"/>
-						<button gradient="blue" className="m-0 py-2" type="submit">
+						<MDBBtn gradient="blue" className="m-0 py-2" type="submit">
 							Send transaction<MDBIcon icon="paper-plane" className="ml-1" />
-						</button>
+						</MDBBtn>
 					</form>
 				</MDBCardBody>
 			</MDBCard>

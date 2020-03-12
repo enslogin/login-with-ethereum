@@ -1,4 +1,4 @@
-#loading
+#LoginWithEthereum-Loading
 {
 	display:          flex;
 	position:         fixed;
@@ -7,9 +7,9 @@
 	background-color: #23272b;
 	align-items:      center;
 	justify-content:  center;
-	z-index:          1000000000;
+	z-index:          1000;
 }
-#loading .path
+#LoginWithEthereum-Loading .path
 {
 	animation: spinner 1.5s infinite;
 }

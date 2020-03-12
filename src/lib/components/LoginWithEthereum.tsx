@@ -1,7 +1,10 @@
-import React from "react";
-import { MDBBtn, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
+import * as React from "react"
+import LoginWithEthereumLoading from './LoginWithEthereumLoading';
+import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
+
 import { ENSLoginSDK, types } from '@enslogin/sdk';
-// import WalletConnectProvider from '@walletconnect/web3-provider';
+import WalletConnectProvider from '@walletconnect/web3-provider';
+
 import localforage from 'localforage';
 
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -34,6 +37,7 @@ export interface Props
 export interface State
 {
 	provider ?: types.provider;
+	loading   : boolean;
 	modal     : boolean;
 }
 
@@ -50,6 +54,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 {
 	state: State = {
 		provider: undefined,
+		loading:  false,
 		modal:    false,
 	}
 
@@ -58,14 +63,25 @@ export class LoginWithEthereum extends React.Component<Props, State>
 	 */
 	componentDidMount = () : void => {
 		this.props.config.__callbacks = this.props.config.__callbacks || {}
-		// inject modal management into the enslogin callback for resolution
-		const resolved_super = this.props.config.__callbacks.resolved
+
+		const super_resolved = this.props.config.__callbacks.resolved
 		this.props.config.__callbacks.resolved = (username, addr, descr) => {
-			this.setState({ modal: false }, () => {
-				if (resolved_super)
-				{
-					resolved_super(username, addr, descr)
-				}
+			this.setState({ loading: true, modal: false }, () => {
+				if (super_resolved) super_resolved(username, addr, descr)
+			})
+		}
+
+		const super_loading = this.props.config.__callbacks.loading
+		this.props.config.__callbacks.loading = (protocol, path) => {
+			this.setState({ loading: true, modal: false }, () => {
+				if (super_loading) super_loading(protocol, path)
+			})
+		}
+
+		const super_loaded = this.props.config.__callbacks.loaded
+		this.props.config.__callbacks.loaded = (protocol, path) => {
+			this.setState({ loading: true, modal: false }, () => {
+				if (super_loaded) super_loaded(protocol, path)
 			})
 		}
 	}
@@ -169,11 +185,10 @@ export class LoginWithEthereum extends React.Component<Props, State>
 		return new Promise(async (resolve, reject) => {
 			try
 			{
-				console.error('walletconnect no supported yet')
-				reject()
+				reject('walletconnect no supported yet')
 				// TODO WalletConnect
 				// // connect using walletconnect
-				// let provider: types.provider = new WalletConnectProvider({ infuraId: "27e484dcd9e3efcfd25a83a78777cdf1" }) // TODO infura
+				// let provider: types.provider = new WalletConnectProvider({ infuraId: this.state.config._infura?.key || "27e484dcd9e3efcfd25a83a78777cdf1" }) // TODO infura
 				// provider.disable = provider.close; // to make it compatible with the disconnect function
 				//
 				// // enable provider
@@ -206,7 +221,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 		return new Promise<void>(async (resolve, reject) => {
 			try
 			{
-				// connect using enslogin
+				// connect using enslogin → shows loading
 				let provider: types.provider = await ENSLoginSDK.connect(username, this.props.config)
 
 				// enable provider
@@ -231,6 +246,10 @@ export class LoginWithEthereum extends React.Component<Props, State>
 			{
 				await this.clearCache()
 				reject(error)
+			}
+			finally
+			{
+				this.setState({ loading: false }) // clears loading
 			}
 		})
 	}
@@ -258,30 +277,66 @@ export class LoginWithEthereum extends React.Component<Props, State>
 	}
 
 	submit = (ev : any): void => {
-		this.enslogin(ev.target.value)
+		ev.preventDefault()
+		this.enslogin(ev.target.username.value)
 		.then(() => {})
-		.catch(() => {})
+		.catch(console.error)
 	}
 
 	// Render
 	render = () => {
 		return (
-			<div id='LoginWithEthereum' className={ this.props.className || '' }>
-				{
-					this.state.provider
-					? <button onClick={ this.disconnect }>Disconnect</button>
-					: <button onClick={ this.connect    }>Login with Ethereum</button>
-				}
-				<MDBModal isOpen={ this.state.modal } toggle={ this.toggle } centered>
-					<MDBModalBody>
-						<MDBInput onChange={ this.submit } label='username'>
-						</MDBInput>
-						<a href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer' className='d-block w-100 text-right small'>
-							Get an ENS Login
+			<>
+				{ this.state.loading && <LoginWithEthereumLoading/> }
+
+				<div id='LoginWithEthereum-Button' className={ this.props.className || '' }>
+					{
+						this.state.provider
+						? <button onClick={ this.disconnect }>Disconnect</button>
+						: <button onClick={ this.connect    }>Login with Ethereum</button>
+					}
+				</div>
+
+				<MDBModal id='LoginWithEthereum-Modal' isOpen={ this.state.modal } toggle={ this.toggle } centered>
+
+					<ul className="nav nav-tabs d-flex">
+						<li className="nav-item flex-auto text-center">
+							<a className="nav-link active">
+								Loggin
+							</a>
+						</li>
+						<li className="nav-item flex-auto text-center">
+							<a className="nav-link" href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer'>
+								Sign-up
+							</a>
+						</li>
+					</ul>
+
+					<form className="m-5" onSubmit={ this.submit }>
+						<MDBInput outline name='username' label='username' className="m-0"/>
+						<a className="inline-embeded" href="#" onClick={ this.walletconnect }>
+							<MDBIcon icon="qrcode"/>
 						</a>
-					</MDBModalBody>
+					</form>
+
+					<div className="d-flex justify-content-center mx-5 mb-3">
+						<a href="#" onClick={ () => this.enslogin('authereum.enslogin.eth') }>
+							<img height="30px" className="rounded mx-2" src="https://miro.medium.com/fit/c/160/160/1*w__iPpsW58dKOv7ZU4tD2A.png"/>
+						</a>
+						<a href="#" onClick={ () => this.enslogin('metamask.enslogin.eth') }>
+							<img height="30px" className="rounded mx-2" src="https://betoken.fund/iao/semantic/dist/themes/default/assets/images/metamask-big.png"/>
+						</a>
+						<a href="#" onClick={ () => this.enslogin('portis.enslogin.eth') }>
+							<img height="30px" className="rounded mx-2" src="https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg"/>
+						</a>
+						<a href="#" onClick={ () => this.enslogin('torus.enslogin.eth') }>
+							<img height="30px" className="rounded mx-2" src="https://gblobscdn.gitbook.com/spaces%2F-LcdiG7_Iag-nhSbPQK2%2Favatar.png"/>
+						</a>
+					</div>
+
 				</MDBModal>
-			</div>
+
+			</>
 		)
 	}
 }
