@@ -28,6 +28,7 @@
 		"mdbreact": "^4.25.3",
 		"react": "^16.13.0",
 		"react-dom": "^16.13.0",
+		"react-spinners": "^0.8.1",
 		"rimraf": "^3.0.2",
 		"typescript": "^3.8.3"
 	},
