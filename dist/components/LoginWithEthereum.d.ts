@@ -14,12 +14,14 @@ export interface Props {
     disconnect?: () => void;
     noCache?: boolean;
     noInjected?: boolean;
+    startVisible?: boolean;
     className?: string;
 }
 export interface State {
     provider?: types.provider;
-    loading: boolean;
-    modal: boolean;
+    modal?: boolean;
+    loading?: boolean;
+    details?: string;
 }
 export interface Cache {
     module: string;
