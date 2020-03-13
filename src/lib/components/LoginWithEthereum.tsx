@@ -341,7 +341,9 @@ export class LoginWithEthereum extends React.Component<Props, State>
 								<span className='flex-auto text-center font-weight-bolder'>
 									Loading { this.state.details && `(${this.state.details})` }
 								</span>
-								<CircleLoader size={ '1.5em' } color={ '#6c757d' }/>
+								<span className='inline-embeded'>
+									<CircleLoader size={ '1.5em' } color={ '#6c757d' }/>
+								</span>
 							</div>
 						}
 					</div>
