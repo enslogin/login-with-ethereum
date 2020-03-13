@@ -75,3 +75,7 @@ code
 {
 	flex: auto;
 }
+#LoginWithEthereum-Modal .pointer-over:hover
+{
+	cursor: pointer;
+}

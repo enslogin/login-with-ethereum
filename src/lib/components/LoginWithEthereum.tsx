@@ -188,7 +188,8 @@ export class LoginWithEthereum extends React.Component<Props, State>
 		return new Promise(async (resolve, reject) => {
 			try
 			{
-				reject('walletconnect no supported yet')
+				this.setState({ loading: true, details: undefined })
+
 				// TODO WalletConnect
 				// // connect using walletconnect
 				// let provider: types.provider = new WalletConnectProvider({ infuraId: this.state.config._infura?.key || "27e484dcd9e3efcfd25a83a78777cdf1" }) // TODO infura
@@ -208,11 +209,18 @@ export class LoginWithEthereum extends React.Component<Props, State>
 				//
 				// // done
 				// resolve()
+
+				reject('walletconnect no supported yet')
 			}
 			catch (error)
 			{
 				await this.clearCache()
 				reject(error)
+			}
+			finally
+			{
+				// clears loading
+				this.setState({ loading: false, details: undefined })
 			}
 		})
 	}
@@ -306,9 +314,9 @@ export class LoginWithEthereum extends React.Component<Props, State>
 
 					<ul className="nav nav-tabs d-flex">
 						<li className="nav-item flex-auto text-center">
-							<a className="nav-link active">
+							<span className="nav-link active">
 								Login
-							</a>
+							</span>
 						</li>
 						<li className="nav-item flex-auto text-center">
 							<a className="nav-link text-muted" href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer'>
@@ -318,14 +326,13 @@ export class LoginWithEthereum extends React.Component<Props, State>
 					</ul>
 
 					<div className="m-5" >
-
 						{
 							!this.state.loading &&
 							<form onSubmit={ this.submit }>
 								<MDBInput outline name='username' label='username' className="m-0"/>
-								<a className="inline-embeded" href="#" onClick={ this.walletconnect }>
+								<span className="pointer-over inline-embeded text-muted" onClick={ this.walletconnect }>
 									<MDBIcon icon="qrcode"/>
-								</a>
+								</span>
 							</form>
 						}
 						{
@@ -337,30 +344,25 @@ export class LoginWithEthereum extends React.Component<Props, State>
 								<ClipLoader size={ '1.5em' } color={ '#6c757d' }/>
 							</div>
 						}
-
 					</div>
 
-					{
-						false &&
-						<div className="d-flex justify-content-center mx-5 mb-3">
-							<a href="#" onClick={ () => this.enslogin('authereum.enslogin.eth') }>
-								<img height="30px" className="rounded mx-2" src="https://miro.medium.com/fit/c/160/160/1*w__iPpsW58dKOv7ZU4tD2A.png"/>
-							</a>
-							<a href="#" onClick={ () => this.enslogin('metamask.enslogin.eth') }>
-								<img height="30px" className="rounded mx-2" src="https://betoken.fund/iao/semantic/dist/themes/default/assets/images/metamask-big.png"/>
-							</a>
-							<a href="#" onClick={ () => this.enslogin('portis.enslogin.eth') }>
-								<img height="30px" className="rounded mx-2" src="https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg"/>
-							</a>
-							<a href="#" onClick={ () => this.enslogin('torus.enslogin.eth') }>
-								<img height="30px" className="rounded mx-2" src="https://gblobscdn.gitbook.com/spaces%2F-LcdiG7_Iag-nhSbPQK2%2Favatar.png"/>
-							</a>
-						</div>
-					}
-
 				</MDBModal>
-
 			</>
 		)
 	}
 }
+
+					// 	<div className="d-flex justify-content-center mx-5 mb-3">
+					// 		<a href="#" onClick={ () => this.enslogin('authereum.enslogin.eth') }>
+					// 			<img height="30px" className="rounded mx-2" src="https://miro.medium.com/fit/c/160/160/1*w__iPpsW58dKOv7ZU4tD2A.png"/>
+					// 		</a>
+					// 		<a href="#" onClick={ () => this.enslogin('metamask.enslogin.eth') }>
+					// 			<img height="30px" className="rounded mx-2" src="https://betoken.fund/iao/semantic/dist/themes/default/assets/images/metamask-big.png"/>
+					// 		</a>
+					// 		<a href="#" onClick={ () => this.enslogin('portis.enslogin.eth') }>
+					// 			<img height="30px" className="rounded mx-2" src="https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg"/>
+					// 		</a>
+					// 		<a href="#" onClick={ () => this.enslogin('torus.enslogin.eth') }>
+					// 			<img height="30px" className="rounded mx-2" src="https://gblobscdn.gitbook.com/spaces%2F-LcdiG7_Iag-nhSbPQK2%2Favatar.png"/>
+					// 		</a>
+					// 	</div>
