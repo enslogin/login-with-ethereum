@@ -311,7 +311,7 @@ export class LoginWithEthereum extends React.Component<Props, State>
 							</a>
 						</li>
 						<li className="nav-item flex-auto text-center">
-							<a className="nav-link" href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer'>
+							<a className="nav-link text-muted" href='https://get-an-enslogin.com' target='_blank' rel='noopener noreferrer'>
 								Sign-up
 							</a>
 						</li>

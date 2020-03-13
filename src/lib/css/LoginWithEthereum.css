@@ -48,6 +48,11 @@ code
 {
 	border-radius: .25em;
 }
+#LoginWithEthereum-Modal .modal-dialog .modal-content .nav-tabs
+{
+	border-radius: .25em .25em 0em 0em;
+	background-color: rgb(245, 245, 245);
+}
 #LoginWithEthereum-Modal .md-form.md-outline
 {
 	display: inline-block;
