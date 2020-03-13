@@ -4,8 +4,8 @@ import { MDBIcon, MDBInput, MDBModal } from 'mdbreact';
 import { ENSLoginSDK, types } from '@enslogin/sdk';
 // import WalletConnectProvider from '@walletconnect/web3-provider';
 
-import ClipLoader  from 'react-spinners/ClipLoader';
-import LocalForage from 'localforage';
+import CircleLoader from 'react-spinners/CircleLoader';
+import LocalForage  from 'localforage';
 
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
@@ -338,10 +338,10 @@ export class LoginWithEthereum extends React.Component<Props, State>
 						{
 							this.state.loading &&
 							<div className='d-flex align-items-center text-muted mx-2'>
-								<span className='flex-auto font-weight-bolder'>
-									Loading { this.state.details && `(${this.state.details})` } ...
+								<span className='flex-auto text-center font-weight-bolder'>
+									Loading { this.state.details && `(${this.state.details})` }
 								</span>
-								<ClipLoader size={ '1.5em' } color={ '#6c757d' }/>
+								<CircleLoader size={ '1.5em' } color={ '#6c757d' }/>
 							</div>
 						}
 					</div>

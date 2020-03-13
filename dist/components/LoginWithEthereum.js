@@ -22,6 +22,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const React = __importStar(require("react"));
 const mdbreact_1 = require("mdbreact");
 const sdk_1 = require("@enslogin/sdk");
+const CircleLoader_1 = __importDefault(require("react-spinners/CircleLoader"));
 const localforage_1 = __importDefault(require("localforage"));
 require("bootstrap-css-only/css/bootstrap.min.css");
 require("mdbreact/dist/css/mdb.css");
@@ -130,11 +131,15 @@ class LoginWithEthereum extends React.Component {
         this.walletconnect = () => {
             return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
                 try {
+                    this.setState({ loading: true, details: undefined });
                     reject('walletconnect no supported yet');
                 }
                 catch (error) {
                     yield this.clearCache();
                     reject(error);
+                }
+                finally {
+                    this.setState({ loading: false, details: undefined });
                 }
             }));
         };
@@ -187,33 +192,21 @@ class LoginWithEthereum extends React.Component {
                 React.createElement(mdbreact_1.MDBModal, { id: 'LoginWithEthereum-Modal', isOpen: this.state.modal || this.state.loading, toggle: this.toggle, centered: true },
                     React.createElement("ul", { className: "nav nav-tabs d-flex" },
                         React.createElement("li", { className: "nav-item flex-auto text-center" },
-                            React.createElement("a", { className: "nav-link active" }, "Login")),
+                            React.createElement("span", { className: "nav-link active" }, "Login")),
                         React.createElement("li", { className: "nav-item flex-auto text-center" },
-                            React.createElement("a", { className: "nav-link", href: 'https://get-an-enslogin.com', target: '_blank', rel: 'noopener noreferrer' }, "Sign-up"))),
+                            React.createElement("a", { className: "nav-link text-muted", href: 'https://get-an-enslogin.com', target: '_blank', rel: 'noopener noreferrer' }, "Sign-up"))),
                     React.createElement("div", { className: "m-5" },
                         !this.state.loading &&
                             React.createElement("form", { onSubmit: this.submit },
                                 React.createElement(mdbreact_1.MDBInput, { outline: true, name: 'username', label: 'username', className: "m-0" }),
-                                React.createElement("a", { className: "inline-embeded", href: "#", onClick: this.walletconnect },
+                                React.createElement("span", { className: "pointer-over inline-embeded text-muted", onClick: this.walletconnect },
                                     React.createElement(mdbreact_1.MDBIcon, { icon: "qrcode" }))),
                         this.state.loading &&
                             React.createElement("div", { className: 'd-flex align-items-center text-muted mx-2' },
-                                React.createElement("span", { className: 'flex-auto font-weight-bolder' },
+                                React.createElement("span", { className: 'flex-auto text-center font-weight-bolder' },
                                     "Loading ",
-                                    this.state.details && `(${this.state.details})`,
-                                    " ..."),
-                                React.createElement("div", { className: "spinner-border spinner-border-sm", role: "status" },
-                                    React.createElement("span", { className: "sr-only" }, "Loading...")))),
-                    false &&
-                        React.createElement("div", { className: "d-flex justify-content-center mx-5 mb-3" },
-                            React.createElement("a", { href: "#", onClick: () => this.enslogin('authereum.enslogin.eth') },
-                                React.createElement("img", { height: "30px", className: "rounded mx-2", src: "https://miro.medium.com/fit/c/160/160/1*w__iPpsW58dKOv7ZU4tD2A.png" })),
-                            React.createElement("a", { href: "#", onClick: () => this.enslogin('metamask.enslogin.eth') },
-                                React.createElement("img", { height: "30px", className: "rounded mx-2", src: "https://betoken.fund/iao/semantic/dist/themes/default/assets/images/metamask-big.png" })),
-                            React.createElement("a", { href: "#", onClick: () => this.enslogin('portis.enslogin.eth') },
-                                React.createElement("img", { height: "30px", className: "rounded mx-2", src: "https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg" })),
-                            React.createElement("a", { href: "#", onClick: () => this.enslogin('torus.enslogin.eth') },
-                                React.createElement("img", { height: "30px", className: "rounded mx-2", src: "https://gblobscdn.gitbook.com/spaces%2F-LcdiG7_Iag-nhSbPQK2%2Favatar.png" }))))));
+                                    this.state.details && `(${this.state.details})`),
+                                React.createElement(CircleLoader_1.default, { size: '1.5em', color: '#6c757d' }))))));
         };
     }
 }

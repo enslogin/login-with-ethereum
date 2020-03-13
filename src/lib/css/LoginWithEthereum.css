@@ -46,6 +46,10 @@ code
  */
 #LoginWithEthereum-Modal .modal-dialog .modal-content
 {
+	padding: 0 !important;
+}
+#LoginWithEthereum-Modal .modal-dialog .modal-content
+{
 	border-radius: .25em;
 }
 #LoginWithEthereum-Modal .modal-dialog .modal-content .nav-tabs
