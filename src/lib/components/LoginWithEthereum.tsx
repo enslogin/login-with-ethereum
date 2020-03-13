@@ -84,7 +84,10 @@ export class LoginWithEthereum extends React.Component<Props, State>
 			})
 		}
 
-		this.setState({ modal: this.props.startVisible })
+		if (this.props.startVisible)
+		{
+			this.setState({ modal: true }, this.connect)
+		}
 	}
 
 	/**
