@@ -59,27 +59,19 @@ code
 }
 #LoginWithEthereum-Modal .md-form.md-outline
 {
-	display: inline-block;
 	width: 100%;
 }
-#LoginWithEthereum-Modal .md-form.md-outline:not(:focus) label
+#LoginWithEthereum-Modal .input-embeded
 {
-	/* transform: translateY(25%); */
-}
-#LoginWithEthereum-Modal .inline-embeded
-{
-	display: inline-block;
-	width: 0;
-}
-#LoginWithEthereum-Modal .inline-embeded i
-{
-	transform: translateX(-200%);
+	position: absolute;
+	top: .75em;
+	right: .75em;
 }
 #LoginWithEthereum-Modal .d-flex .flex-auto
 {
 	flex: auto;
 }
-#LoginWithEthereum-Modal .pointer-over:hover
+#LoginWithEthereum-Modal .pointer-hover:hover
 {
 	cursor: pointer;
 }
