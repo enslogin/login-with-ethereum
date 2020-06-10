@@ -445,8 +445,8 @@ var LoginWithEthereum = /*#__PURE__*/function (_React$Component) {
 LoginWithEthereum.propTypes = {
   config: _propTypes["default"].object,
   networks: _propTypes["default"].array,
-  connect: _propTypes["default"].func.isRequired,
-  disconnect: _propTypes["default"].func.isRequired,
+  connect: _propTypes["default"].func,
+  disconnect: _propTypes["default"].func,
   noCache: _propTypes["default"].bool,
   noInjected: _propTypes["default"].bool,
   startVisible: _propTypes["default"].bool,
@@ -464,8 +464,8 @@ LoginWithEthereum.defaultProps = {
     }
   },
   noCache: false,
-  noInjected: true,
-  startVisible: true,
+  noInjected: false,
+  startVisible: false,
   className: ''
 };
 var _default = LoginWithEthereum;

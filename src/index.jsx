@@ -258,8 +258,8 @@ class LoginWithEthereum extends React.Component
 LoginWithEthereum.propTypes = {
 	config:       PropTypes.object,
 	networks:     PropTypes.array,
-	connect:      PropTypes.func.isRequired,
-	disconnect:   PropTypes.func.isRequired,
+	connect:      PropTypes.func,
+	disconnect:   PropTypes.func,
 	noCache:      PropTypes.bool,
 	noInjected:   PropTypes.bool,
 	startVisible: PropTypes.bool,
@@ -278,8 +278,8 @@ LoginWithEthereum.defaultProps = {
 		},
 	},
 	noCache:      false,
-	noInjected:   true,
-	startVisible: true,
+	noInjected:   false,
+	startVisible: false,
 	className:    '',
 }
 
