@@ -1,6 +1,6 @@
 {
 	"name": "@enslogin/login-with-ethereum",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"author": "Hadrien Croubois <hadrien.croubois@gmail.com>",
 	"licence": "MIT",
 	"main": "dist/index.js",
