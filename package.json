@@ -33,6 +33,7 @@
 		"@babel/preset-env": "^7.10.2",
 		"@babel/preset-react": "^7.10.1",
 		"babel-loader": "^8.1.0",
+		"babel-preset-minify": "^0.5.1",
 		"css-loader": "^3.5.3",
 		"file-loader": "^6.0.0",
 		"html-webpack-plugin": "^4.3.0",
@@ -48,5 +49,16 @@
 		"prop-types": "^15.7.2",
 		"react": "^16.13.1",
 		"react-dom": "^16.13.1"
+	},
+	"babel": {
+		"plugins": [
+			"@babel/plugin-proposal-class-properties",
+			"@babel/plugin-transform-runtime"
+		],
+		"presets": [
+			"@babel/react",
+			"@babel/env",
+			"minify"
+		]
 	}
 }
