@@ -97,6 +97,12 @@ var LoginWithEthereum = /*#__PURE__*/function (_React$Component) {
           return super_loaded && super_loaded(protocol, path);
         });
       };
+
+      if (_this.props.startVisible) {
+        _this.setState({
+          modal: true
+        }, _this.connect);
+      }
     });
     (0, _defineProperty2["default"])((0, _assertThisInitialized2["default"])(_this), "setProvider", function (provider) {
       return new Promise(function (resolve, reject) {
