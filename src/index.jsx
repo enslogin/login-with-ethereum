@@ -17,6 +17,7 @@ const STORE = 'login-with-ethereum-cache';
 class LoginWithEthereum extends React.Component
 {
 	state = {}
+
 	/**
 	 * component configuration
 	 */
@@ -41,6 +42,11 @@ class LoginWithEthereum extends React.Component
 			{ details: 'instanciating wallet' },
 			() => super_loaded && super_loaded(protocol, path)
 		);
+
+		if (this.props.startVisible)
+		{
+			this.setState({ modal: true }, this.connect)
+		}
 	}
 
 	/**
