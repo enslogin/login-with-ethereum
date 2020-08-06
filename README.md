@@ -44,3 +44,6 @@ const config = {
 
 - **noInjected:** (boolean, defaut=false)
 	By default LoginWithEthereum looks for an injected web3 provider before using ENSLogin. Setting this options will skip that step and move directly to ENSLogin.
+
+-- **customSection** (optional)
+	If you pass component, you can override the section where it has the list of provider icons
