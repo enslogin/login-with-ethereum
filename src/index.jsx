@@ -17,6 +17,7 @@ const STORE = 'login-with-ethereum-cache';
 class LoginWithEthereum extends React.Component
 {
 	state = {}
+
 	/**
 	 * component configuration
 	 */
@@ -41,6 +42,11 @@ class LoginWithEthereum extends React.Component
 			{ details: 'instanciating wallet' },
 			() => super_loaded && super_loaded(protocol, path)
 		);
+
+		if (this.props.startVisible)
+		{
+			this.setState({ modal: true }, this.connect)
+		}
 	}
 
 	/**
@@ -183,12 +189,12 @@ class LoginWithEthereum extends React.Component
 				centered
 			>
 				<ul className='nav nav-tabs d-flex'>
-					<li className='nav-item flex-auto text-center'>
+					<li className='nav-item flex-1 text-center'>
 						<span className='nav-link active'>
 							Login
 						</span>
 					</li>
-					<li className='nav-item flex-auto text-center'>
+					<li className='nav-item flex-1 text-center'>
 						<a className='nav-link text-muted' href='https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2525.md' target='_blank' rel='noopener noreferrer'>
 							About ENSLogin
 						</a>
