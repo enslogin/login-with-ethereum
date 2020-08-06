@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { MDBIcon, MDBInput, MDBModal, MDBModalBody } from 'mdbreact';
 import CircleLoader    from 'react-spinners/CircleLoader';
 import LocalForage     from 'localforage';
+import _               from 'lodash';
 import { ENSLoginSDK } from '@enslogin/sdk';
-
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -22,8 +22,18 @@ class LoginWithEthereum extends React.Component
 	 * component configuration
 	 */
 	componentDidMount = () => {
-		console
-		this.props.config.__callbacks = this.props.config.__callbacks || {};
+
+		this.props.config.provider = _.defaults(
+			this.props.config.provider,
+			{
+				network: this.props.networks && this.props.networks.find(Boolean).name
+			}
+		);
+
+		this.props.config.__callbacks = _.defaults(
+			this.props.config.__callbacks,
+			{}
+		);
 
 		const super_resolved = this.props.config.__callbacks.resolved;
 		this.props.config.__callbacks.resolved = (username, addr, descr) => this.setState(
@@ -125,6 +135,7 @@ class LoginWithEthereum extends React.Component
 			this.setState({ loading: true, details: undefined });
 
 			// connect with enslogin's sdk
+			console.info(this.props.config)
 			let provider = await ENSLoginSDK.connect(username, this.props.config);
 			provider.enable && await provider.enable();
 
@@ -210,14 +221,11 @@ class LoginWithEthereum extends React.Component
 									this.props.networks &&
 										<select
 											className='md-form md-outline'
-											defaultValue={ (this.props.config.provider && this.props.config.provider.network) || '' }
-											onChange={ (ev) => {
-												this.props.config.provider = this.props.config.provider || {};
-												this.props.config.provider.network = ev.target.value;
-											}}
+											defaultValue={ this.props.config.provider.network }
+											onChange={ (ev) => this.props.config.provider.network = ev.target.value }
 										>
 										{
-											this.props.networks.map(({name, endpoint}, i) => <option key={i} value={endpoint||name}>{name}</option>)
+											this.props.networks.map(({name, endpoint}, i) => <option key={i} value={ endpoint || name }>{name}</option>)
 										}
 										</select>
 								}

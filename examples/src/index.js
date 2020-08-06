@@ -70,7 +70,7 @@ const App = () =>
 			<LoginWithEthereum
 				config={{
 					provider: {
-						network: 'goerli',
+						resolutionNetwork: 'goerli',
 					},
 					__callbacks: {
 						resolved: (username, addr, descr) => console.info(`[resolved] ${username} → ${descr}`),
@@ -83,6 +83,13 @@ const App = () =>
 				noCache      = { true }
 				noInjected   = { true }
 				startVisible = { true }
+				networks     = {[
+          { name: 'mainnet' },
+          { name: 'ropsten' },
+          { name: 'rinkeby' },
+          { name: 'goerli'  },
+          { name: 'kovan'   },
+				]}
 			/>
 
 			{
