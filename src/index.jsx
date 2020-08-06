@@ -21,43 +21,37 @@ class LoginWithEthereum extends React.Component
 	/**
 	 * component configuration
 	 */
-	componentDidMount = () => {
-
-		this.props.config.provider = _.defaults(
-			this.props.config.provider,
-			{
-				network: this.props.networks && this.props.networks.find(Boolean).name
-			}
-		);
-
-		this.props.config.__callbacks = _.defaults(
-			this.props.config.__callbacks,
-			{}
-		);
-
-		const super_resolved = this.props.config.__callbacks.resolved;
-		this.props.config.__callbacks.resolved = (username, addr, descr) => this.setState(
-			{ details: 'username resolved' },
-			() => super_resolved && super_resolved(username, addr, descr)
-		);
-
-		const super_loading = this.props.config.__callbacks.loading;
-		this.props.config.__callbacks.loading = (protocol, path) => this.setState(
-			{ details: 'fetching wallet' },
-			() => super_loading && super_loading(protocol, path)
-		);
-
-		const super_loaded = this.props.config.__callbacks.loaded;
-		this.props.config.__callbacks.loaded = (protocol, path) => this.setState(
-			{ details: 'instanciating wallet' },
-			() => super_loaded && super_loaded(protocol, path)
-		);
-
-		if (this.props.startVisible)
+	componentDidMount = () => this.setState(
 		{
-			this.setState({ modal: true }, this.connect)
-		}
-	}
+			config: _.defaultsDeep(
+				this.props.config,
+				{
+					provider:
+					{
+						network: this.props.networks && this.props.networks.find(Boolean).name
+					},
+					__callbacks:
+					{
+						resolved: (username, addr, descr) => this.setState(
+							{ details: 'username resolved' },
+							() => this.props.config.__callbacks.resolved && this.props.config.__callbacks.resolved(username, addr, descr)
+						),
+
+						loading: (protocol, path) => this.setState(
+							{ details: 'fetching wallet' },
+							() => this.props.config.__callbacks.loading && this.props.config.__callbacks.loading(protocol, path)
+						),
+
+						loaded: (protocol, path) => this.setState(
+							{ details: 'instanciating wallet' },
+							() => this.props.config.__callbacks.loaded && this.props.config.__callbacks.loaded(protocol, path)
+						),
+					}
+				}
+			)
+		},
+		() => this.props.startVisible && this.setState({ modal: true }, this.connect)
+	)
 
 	/**
 	 * State (provider) management
@@ -135,8 +129,8 @@ class LoginWithEthereum extends React.Component
 			this.setState({ loading: true, details: undefined });
 
 			// connect with enslogin's sdk
-			console.info('trying enlogin connect with:', username, this.props.config);
-			let provider = await ENSLoginSDK.connect(username, this.props.config);
+			console.info('trying enlogin connect with:', username, this.state.config);
+			let provider = await ENSLoginSDK.connect(username, this.state.config);
 			provider.enable && await provider.enable();
 
 			// set provider
@@ -221,8 +215,8 @@ class LoginWithEthereum extends React.Component
 									this.props.networks &&
 										<select
 											className='md-form md-outline'
-											defaultValue={ this.props.config.provider.network }
-											onChange={ (ev) => this.props.config.provider.network = ev.target.value }
+											defaultValue={ this.state.config && this.state.config.provider.network }
+											onChange={ (ev) => this.state.config.provider.network = ev.target.value }
 										>
 										{
 											this.props.networks.map(({name, endpoint}, i) => <option key={i} value={ endpoint || name }>{name}</option>)

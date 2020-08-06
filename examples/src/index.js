@@ -84,11 +84,11 @@ const App = () =>
 				noInjected   = { true }
 				startVisible = { true }
 				networks     = {[
-          { name: 'mainnet' },
-          { name: 'ropsten' },
-          { name: 'rinkeby' },
-          { name: 'goerli'  },
-          { name: 'kovan'   },
+					{ name: 'mainnet' },
+					{ name: 'ropsten' },
+					{ name: 'rinkeby' },
+					{ name: 'goerli'  },
+					{ name: 'kovan'   },
 				]}
 			/>
 
