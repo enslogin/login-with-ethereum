@@ -24,28 +24,28 @@ class LoginWithEthereum extends React.Component
 	componentDidMount = () => this.setState(
 		{
 			config: _.defaultsDeep(
-				this.props.config,
 				{
-					provider:
-					{
-						network: this.props.networks && this.props.networks.find(Boolean).name
-					},
 					__callbacks:
 					{
 						resolved: (username, addr, descr) => this.setState(
 							{ details: 'username resolved' },
 							() => this.props.config.__callbacks.resolved && this.props.config.__callbacks.resolved(username, addr, descr)
 						),
-
 						loading: (protocol, path) => this.setState(
 							{ details: 'fetching wallet' },
 							() => this.props.config.__callbacks.loading && this.props.config.__callbacks.loading(protocol, path)
 						),
-
 						loaded: (protocol, path) => this.setState(
 							{ details: 'instanciating wallet' },
 							() => this.props.config.__callbacks.loaded && this.props.config.__callbacks.loaded(protocol, path)
 						),
+					}
+				},
+				this.props.config,
+				{
+					provider:
+					{
+						network: this.props.networks && this.props.networks.find(Boolean).name
 					}
 				}
 			)
