@@ -248,7 +248,7 @@ class LoginWithEthereum extends React.Component
 								<img alt='authereum' height='30px' className='rounded mx-2' src='https://miro.medium.com/fit/c/160/160/1*w__iPpsW58dKOv7ZU4tD2A.png'/>
 							</span>
 							<span className='pointer-hover' onClick={ () => this.enslogin('portis.enslogin.eth') }>
-								<img alt='portis' height='30px' className='rounded mx-2' src='https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg'/>
+								<img alt='portis' height='30px' className='rounded mx-2' src='https://pbs.twimg.com/profile_images/979366213817176064/BvhTIDm0_400x400.jpg'/>
 							</span>
 							</div>
 						)
