@@ -135,7 +135,6 @@ class LoginWithEthereum extends React.Component
 			this.setState({ loading: true, details: undefined });
 
 			// connect with enslogin's sdk
-			console.info(this.props.config)
 			let provider = await ENSLoginSDK.connect(username, this.props.config);
 			provider.enable && await provider.enable();
 
