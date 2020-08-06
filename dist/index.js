@@ -402,7 +402,7 @@ var LoginWithEthereum = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/_react["default"].createElement(_CircleLoader["default"], {
         size: "1.5em",
         color: "#6c757d"
-      })))), !_this.state.loading && /*#__PURE__*/_react["default"].createElement("div", {
+      })))), !_this.state.loading && (_this.props.customSection ? _this.props.customSection : /*#__PURE__*/_react["default"].createElement("div", {
         className: "d-flex justify-content-center mx-5 mb-3"
       }, /*#__PURE__*/_react["default"].createElement("span", {
         className: "pointer-hover",
@@ -434,7 +434,7 @@ var LoginWithEthereum = /*#__PURE__*/function (_React$Component) {
         height: "30px",
         className: "rounded mx-2",
         src: "https://wallet.portis.io/805b29212ec4c056ac686d150789aeca.svg"
-      })))));
+      }))))));
     });
     return _this;
   }
