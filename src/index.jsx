@@ -16,7 +16,9 @@ const STORE = 'login-with-ethereum-cache';
 
 class LoginWithEthereum extends React.Component
 {
-	state = {}
+	state = {
+		config: {}
+	}
 
 	/**
 	 * component configuration
@@ -214,8 +216,8 @@ class LoginWithEthereum extends React.Component
 								{
 									this.props.networks &&
 										<select
-											className='md-form md-outline'
-											defaultValue={ this.state.config && this.state.config.provider.network }
+											className='md-form md-outline flex-1'
+											defaultValue={ this.state.config.provider && this.state.config.provider.network }
 											onChange={ (ev) => this.state.config.provider.network = ev.target.value }
 										>
 										{
